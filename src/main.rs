@@ -1,11 +1,10 @@
 use getopt::Opt;
 
 fn main() {
-    // args = ["program", "-abc", "-d", "foo", "-e", "bar"];
-    let mut args: Vec<String> = std::env::args().collect();
+    let args: Vec<String> = std::env::args().collect();
     let mut opts = getopt::Parser::new(&args, "n:p:");
 
-    let addressSeparator: String = ":".to_owned();
+    let address_separator: String = ":".to_owned();
     let mut nodename = String::new();
     let mut port = String::new();
 
@@ -21,8 +20,8 @@ fn main() {
         }
     }
 
-    let textSockAddr: String = (nodename + &addressSeparator) + &port;
+    let text_sock_addr: String = (nodename + &address_separator) + &port;
 
-    println!("Translating address: {textSockAddr}")
+    println!("Translating address: {text_sock_addr}")
 
 }
