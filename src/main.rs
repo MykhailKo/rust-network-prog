@@ -11,8 +11,8 @@ fn main() {
 
     loop {
         match opts.next().transpose() {
-            None => break,
-            Some(opt) => match opt {
+            Ok(None) => break,
+            Ok(Some(opt)) => match opt {
                 Opt('n', Some(arg)) => nodename = arg.clone(),
                 Opt('p', Some(arg)) => port = arg.clone(),
                 _ => unreachable!(),
