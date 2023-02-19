@@ -39,12 +39,12 @@ fn main() {
                     continue;
                 }
                 match sock {
-                    SocketAddr::V4({ ip, port }) => {
+                    SocketAddr::V4(SocketAddrV4 { ip, port }) => {
                         if ip_version == 4 {
                             println!("address: {address}, port: {port}");
                         }
                     },
-                    SocketAddr::V6({ ip, port, flowinfo, scope_id }) => {
+                    SocketAddr::V6(SocketAddrV6 { ip, port, flowinfo, scope_id }) => {
                         if ip_version == 6 {
                             println!("address: {address}, port: {port}");
                         }
