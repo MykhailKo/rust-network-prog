@@ -17,6 +17,7 @@ fn main() {
                 Opt('p', Some(arg)) => port = arg.clone(),
                 _ => unreachable!(),
             },
+            Err(_) => println!("Invalid input")
         }
     }
 
