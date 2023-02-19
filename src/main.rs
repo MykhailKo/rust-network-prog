@@ -24,7 +24,7 @@ fn main() {
     let text_sock_addr: String = (nodename + &address_separator) + &port;
     println!("Translating address: {text_sock_addr}");
 
-    let sock_addresses = text_sock_addr.to_socket_addrs().unwrap();
+    let mut sock_addresses = text_sock_addr.to_socket_addrs().unwrap();
 
     loop {
         match sock_addresses.next() {
