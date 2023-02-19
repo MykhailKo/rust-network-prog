@@ -28,11 +28,11 @@ fn main() {
 
     loop {
         match sock_addresses.next() {
-            Ok(None) => break,
-            Ok(Some(sock)) => {
+            None => break,
+            Some(sock) => {
                 let address = sock.ip().to_string();
-                let port = sock.port().to_string()
-                println!("address: {address}, port: {port}")
+                let port = sock.port().to_string();
+                println!("address: {address}, port: {port}");
             }
         }
     }
