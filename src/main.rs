@@ -24,25 +24,25 @@ fn main() {
     }
 
     let text_sock_addr: String = (nodename + &address_separator) + &port;
-    println!("Translating address: {text_sock_addr}");
+    println!("Translating address: {text_sock_addr}, {ip_version}");
 
-    let mut sock_addresses = text_sock_addr.to_socket_addrs().unwrap();
+    // let mut sock_addresses = text_sock_addr.to_socket_addrs().unwrap();
 
-    loop {
-        match sock_addresses.next() {
-            None => break,
-            Some(sock) => {
-                let address = sock.ip().to_string();
-                let port = sock.port().to_string();
-                if ip_version == 4 && sock.is_ipv4() {
-                    println!("address: {address}, port: {port}");
-                } else if ip_version == 6 && sock.is_ipv6() {
-                    println!("address: {address}, port: {port}");
-                } else {
-                    println!("address: {address}, port: {port}");
-                }
-            }
-        }
-    }
+    // loop {
+    //     match sock_addresses.next() {
+    //         None => break,
+    //         Some(sock) => {
+    //             let address = sock.ip().to_string();
+    //             let port = sock.port().to_string();
+    //             if ip_version == 4 && sock.is_ipv4() {
+    //                 println!("address: {address}, port: {port}");
+    //             } else if ip_version == 6 && sock.is_ipv6() {
+    //                 println!("address: {address}, port: {port}");
+    //             } else {
+    //                 println!("address: {address}, port: {port}");
+    //             }
+    //         }
+    //     }
+    // }
 
 }
