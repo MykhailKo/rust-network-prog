@@ -1,4 +1,4 @@
-use std::net::{SocketAddr, ToSocketAddrs};
+use std::net::{ToSocketAddrs};
 use getopt::Opt;
 
 fn main() {
@@ -22,14 +22,18 @@ fn main() {
     }
 
     let text_sock_addr: String = (nodename + &address_separator) + &port;
-    println!("Translating address: {text_sock_addr}")
+    println!("Translating address: {text_sock_addr}");
 
     let sock_addresses = text_sock_addr.to_socket_addrs().unwrap();
 
     loop {
-        match sock_addresses.next().transpose() {
+        match sock_addresses.next() {
             Ok(None) => break,
-            Ok(Some(sock)) => println!("address: {sock.ip().to_string()}, port: {sock.port().to_string()}")
+            Ok(Some(sock)) => {
+                let address = sock.ip().to_string();
+                let port = sock.port().to_string()
+                println!("address: {address}, port: {port}")
+            }
         }
     }
 
