@@ -1,13 +1,14 @@
-use std::net::{ToSocketAddrs};
+use std::net::{ToSocketAddrs, SocketAddr, SocketAddrV4, SocketAddrV6};
 use getopt::Opt;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let mut opts = getopt::Parser::new(&args, "n:p:");
+    let mut opts = getopt::Parser::new(&args, "n:p:v");
 
     let address_separator: String = ":".to_owned();
     let mut nodename = String::new();
     let mut port = String::new();
+    let mut ip_version = 0;
 
     loop {
         match opts.next().transpose() {
@@ -15,6 +16,7 @@ fn main() {
             Ok(Some(opt)) => match opt {
                 Opt('n', Some(arg)) => nodename = arg.clone(),
                 Opt('p', Some(arg)) => port = arg.clone(),
+                Opt('v', Some(arg)) => ip_version = arg.clone().trim().parse()
                 _ => unreachable!(),
             },
             Err(_) => println!("Invalid input")
@@ -32,10 +34,24 @@ fn main() {
             Some(sock) => {
                 let address = sock.ip().to_string();
                 let port = sock.port().to_string();
-                println!("address: {address}, port: {port}");
+                if ip_version == 0 {
+                    println!("address: {address}, port: {port}");
+                    continue;
+                }
+                match sock {
+                    SocketAddrV4(sock_v4) => {
+                        if ip_version == 4 {
+                            println!("address: {address}, port: {port}");
+                        }
+                    }
+                    SocketAddrV6(sock_v6) => {
+                        if ip_version == 6 {
+                            println!("address: {address}, port: {port}");
+                        }
+                    }
+                }
             }
         }
     }
-
 
 }
