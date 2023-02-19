@@ -16,7 +16,7 @@ fn main() {
             Ok(Some(opt)) => match opt {
                 Opt('n', Some(arg)) => nodename = arg.clone(),
                 Opt('p', Some(arg)) => port = arg.clone(),
-                Opt('v', Some(arg)) => ip_version = arg.clone().trim().parse()
+                Opt('v', Some(arg)) => ip_version = arg.clone().trim().parse().unwrap(),
                 _ => unreachable!(),
             },
             Err(_) => println!("Invalid input")
@@ -39,12 +39,12 @@ fn main() {
                     continue;
                 }
                 match sock {
-                    SocketAddrV4(sock_v4) => {
+                    SocketAddrV4 { ip, port } => {
                         if ip_version == 4 {
                             println!("address: {address}, port: {port}");
                         }
-                    }
-                    SocketAddrV6(sock_v6) => {
+                    },
+                    SocketAddrV6 { ip, port, flowinfo, scope_id } => {
                         if ip_version == 6 {
                             println!("address: {address}, port: {port}");
                         }
