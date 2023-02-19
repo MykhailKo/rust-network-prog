@@ -36,20 +36,12 @@ fn main() {
                 let port = sock.port().to_string();
                 if ip_version == 0 {
                     println!("address: {address}, port: {port}");
-                    continue;
+                } else if ip_version == 4 && sock.is_ipv4() {
+                    println!("address: {address}, port: {port}");
+                } else if ip_version == 6 && sock.is_ipv6() {
+                    println!("address: {address}, port: {port}");
                 }
-                match sock {
-                    SocketAddr::V4 => {
-                        if ip_version == 4 {
-                            println!("address: {address}, port: {port}");
-                        }
-                    },
-                    SocketAddr::V6 => {
-                        if ip_version == 6 {
-                            println!("address: {address}, port: {port}");
-                        }
-                    }
-                }
+
             }
         }
     }
