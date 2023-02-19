@@ -1,4 +1,4 @@
-use std::net::{ToSocketAddrs, SocketAddr, SocketAddrV4, SocketAddrV6};
+use std::net::{ToSocketAddrs};
 use getopt::Opt;
 
 fn main() {
